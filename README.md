@@ -10,4 +10,4 @@
 <p>app para acessar filmes</p>
 
 ## APIs a usar
-<p>...</p>
+<p>8d34f5d8a544a4416e6596e58d71238e</p>
