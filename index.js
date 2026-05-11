@@ -18,6 +18,6 @@ fetch('https://api.themoviedb.org/3/movie/popular?api_key=8d34f5d8a544a4416e6596
 }
 
 function tratar_resp(res){
- console.log("hey")
+ console.log("hey");
 
 }
