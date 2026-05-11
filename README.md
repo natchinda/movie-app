@@ -1,4 +1,4 @@
-# movie-app
+# MyMovieList
 
 ## Autores 
 <p>Milca e Dinis</p>
