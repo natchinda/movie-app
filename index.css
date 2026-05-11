@@ -24,5 +24,17 @@ button{
   cursor: pointer;
 }
 
+#moviesConteiner{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+.movie{
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
 
   
