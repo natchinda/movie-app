@@ -9,4 +9,20 @@ header{
   color: white;
   padding: 20px;
 }
+
+.search-section{
+  margin: 20px;
+}
+
+input{
+  padding: 10px;
+  widh:250px;
+}
+
+button{
+  padding: 10px;
+  cursor: pointer;
+}
+
+
   
