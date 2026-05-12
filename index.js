@@ -18,8 +18,12 @@ fetch('https://api.themoviedb.org/3/movie/popular?api_key=8d34f5d8a544a4416e6596
 }
 
 function tratar_resp(res){
+  let moviesContainer=document.querySelector('#moviesContainer');
   res.results.forEach(filme => {
     console.log(filme.title);
+    let img=document.createElement('img');
+    img.src=`https://image.tmdb.org/t/p/w500${filme.poster_path}`;
+    moviesContainer.append(img);
+    
   });
-
 }
