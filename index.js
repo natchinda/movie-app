@@ -37,7 +37,11 @@ async function searchMovies(movieName) {
 }
 //Pesquisar por Género
 async function buscarPorgenero(generoId){
-    
+  const response = await featch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`);
+  const data = await response.json();
+    sectionTitle.innerText = "Filmes por Género";
+    displayMovies(data.results);
+}    
 
 //Mostrar Filmes
 function displayMovies(movies){
