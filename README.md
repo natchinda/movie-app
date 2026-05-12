@@ -11,3 +11,6 @@
 
 ## APIs a usar
 <p>https://www.themoviedb.org/settings/api</p>
+
+## Ideias
+<p>lista de filmes favoritos </p>
