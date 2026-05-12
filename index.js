@@ -1,75 +1,178 @@
-const API_KEY = '8d34f5d8a544a4416e6596e58d71238e'
+const API_KEY = "8d34f5d8a544a4416e6596e58d71238e";
+
 const container = document.getElementById("moviesContainer");
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
+const sectionTitle = document.getElementById("sectionTitle");
 
-async function getPopularMovies();
-  const response = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}');
 
-const data = await response.json();
-  displayMovies(data.results);
+// =========================
+// FILMES POPULARES
+// =========================
+
+async function getPopularMovies() {
+
+    const response = await fetch(
+        `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
+    );
+
+    const data = await response.json();
+
+    displayMovies(data.results);
 }
+
+
+// =========================
+// PESQUISAR FILMES
+// =========================
+
+async function searchMovies(movieName) {
+
+    const response = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`
+    );
+
+    const data = await response.json();
+
+    sectionTitle.innerText = `Resultados para: ${movieName}`;
+
+    displayMovies(data.results);
+}
+
+
+// =========================
+// PESQUISAR POR GÉNERO
+// =========================
+
+async function buscarPorGenero(generoId) {
+
+    const response = await fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${generoId}`
+    );
+
+    const data = await response.json();
+
+    sectionTitle.innerText = "Filmes por Género";
+
+    displayMovies(data.results);
+}
+
+
+// =========================
+// MOSTRAR FILMES
+// =========================
 
 function displayMovies(movies) {
-  container.innerHTML = "";
 
-  movies.forEach(movie => {
-    const movieDiv = document.createElement("div");
-    movieDiv.classList.add("movie");
+    container.innerHTML = "";
 
-    movieDiv.innerHTML =`
-      <h3>${movie.tttle}</h3>
-      <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" />
-      <p>${movie.vote_average}</p>
-`;
-   container.appendChild(movieDiv);
-});
+    movies.forEach(movie => {
+
+        const movieDiv = document.createElement("div");
+
+        movieDiv.classList.add("movie");
+
+        movieDiv.innerHTML = `
+            <h3>${movie.title}</h3>
+
+            <img
+                src="https://image.tmdb.org/t/p/w200${movie.poster_path}"
+                alt="${movie.title}"
+            />
+
+            <p>⭐ ${movie.vote_average}</p>
+
+            <button class="favorite-btn">
+                ❤️ Favorito
+            </button>
+        `;
+
+
+        // BOTÃO FAVORITOS
+
+        const favoriteBtn =
+            movieDiv.querySelector(".favorite-btn");
+
+        favoriteBtn.addEventListener("click", () => {
+
+            saveFavorite(movie);
+
+        });
+
+
+        container.appendChild(movieDiv);
+
+    });
+
 }
+
+
+// =========================
+// GUARDAR FAVORITOS
+// =========================
+
+function saveFavorite(movie) {
+
+    let favorites =
+        JSON.parse(localStorage.getItem("favorites")) || [];
+
+    favorites.push(movie);
+
+    localStorage.setItem(
+        "favorites",
+        JSON.stringify(favorites)
+    );
+
+    alert(`${movie.title} foi adicionado aos favoritos!`);
+}
+
+
+// =========================
+// MOSTRAR FAVORITOS
+// =========================
+
+function mostrarFavoritos() {
+
+    const favorites =
+        JSON.parse(localStorage.getItem("favorites")) || [];
+
+    sectionTitle.innerText = "Meus Filmes Favoritos";
+
+    displayMovies(favorites);
+}
+
+
+// =========================
+// VOLTAR À HOME
+// =========================
+
+function mostrarHome() {
+
+    sectionTitle.innerText = "Filmes Populares";
+
+    getPopularMovies();
+}
+
+
+// =========================
+// EVENTO PESQUISA
+// =========================
+
 searchBtn.addEventListener("click", () => {
+
     const movieName = searchInput.value;
 
     if (movieName !== "") {
+
         searchMovies(movieName);
+
     }
+
 });
+
+
+// =========================
+// INICIAR APP
+// =========================
+
 getPopularMovies();
-
-
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZDM0ZjVkOGE1NDRhNDQxNmU2NTk2ZTU4ZDcxMjM4ZSIsIm5iZiI6MTc3Nzk3MjI1MS40ODYsInN1YiI6IjY5ZjliNDFiOGIwOWY5MTc5ZmM5NWIxZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.aarhlhmz4GTF1nxm6PpmxMhg3Tr1pzBrNIKTE0TCVlo'
-  }
-};
-response();
-
-function response(){
-fetch('https://api.themoviedb.org/3/movie/popular?api_key=8d34f5d8a544a4416e6596e58d71238e', options)
-  .then(res => res.json())
-  .then(res => {
-    console.log(res);
-    tratar_resp(res);
-  })
-  .catch(err => console.error(err));
-}
-
-function tratar_resp(res){
-  let moviesContainer=document.querySelector('#moviesContainer');
-  res.results.forEach(filme => {
-    console.log(filme.title);
-    let img=document.createElement('img');
-    img.src=https://image.tmdb.org/t/p/w300${filme.poster_path};
-    moviesContainer.append(img);
-    
-  });
-}
-
-document.getElementById("searchBtn").addEventListener("click", pesquisa);
-
-function pesquisa(){
- console.log("hey now");//works
- let searchInput = document.getElementById('searchInput');
- console.log(searchInput.value);//returns 
-
-}
