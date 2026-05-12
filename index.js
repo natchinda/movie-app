@@ -1,3 +1,8 @@
+const API_KEY = '8d34f5d8a544a4416e6596e58d71238e'
+const BASE_URL = 'https://api.themoviedb.org/3'
+
+window.onload = () => buscarFilmes(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=pt`);
+
 const options = {
   method: 'GET',
   headers: {
