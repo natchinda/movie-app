@@ -6,9 +6,7 @@ const searchInput = document.getElementById("searchInput");
 const sectionTitle = document.getElementById("sectionTitle");
 
 
-// =========================
-// FILMES POPULARES
-// =========================
+// Filmes Populares
 
 async function getPopularMovies() {
 
@@ -22,9 +20,8 @@ async function getPopularMovies() {
 }
 
 
-// =========================
-// PESQUISAR FILMES
-// =========================
+
+// Pesquisar Filmes
 
 async function searchMovies(movieName) {
 
@@ -38,12 +35,32 @@ async function searchMovies(movieName) {
 
     displayMovies(data.results);
 }
+//Pesquisar por Género
+async function buscarPorgenero(generoId){
+    
 
+//Mostrar Filmes
+function displayMovies(movies){
+    
 
+//Botão Favoritos
+const favoriteBtn = movieDiv.querySelector(".favorite-btn");
+    
+//Quardar Favoritos
+function savefavorite(movies){
 
+    
+//Mostrar Favoritos
+function mostrarFavotite(){
+    
+    
+//Voltar à Home
+function mostrarHome(){
 
-// =========================
-// INICIAR APP
-// =========================
+    
+// Evento Pesquisar
+searchBtn.addEventList("click", () => {
+    
 
+// Iníciar app
 getPopularMovies();
