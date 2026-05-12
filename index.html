@@ -12,16 +12,22 @@
 <header>
     <h1>MyMovieList</h1>
     <p>Descobre e guarda os teus filmes favoritos</p>
+    <div class="nav-buttons">
+        <button onclick="mostrarHome()">Início</button>
+        <button onclick="mostrarFavoritos()">Minha Lista Favorita</button>
+    </div>
 </header>
-    
-
     <section class="search-section">
-        <input type="text2" id="searchInput" placeholder="Pesquisar filmes">
-        <button id="searchBtn">Pesquisar</button>
+        <input type="text" id="searchInput" placeholder="Pesquisar filmes...">
+        <div
+            <button onclick="buscarPorGenero(28)">Ação</button>
+            <button onclick="buscarPorGenero(35)">Comédia</button>
+            <button onclick="buscarPorGenero(27)">Terror</button>
+        </div>
      </section>
 
     <main>
-        <h2>Filmes Populares</h2>
+        <h2> id="sectionTitle">Filmes Populares</h2>
         <div id="moviesContainer"></div>
 </body>
 </html>
