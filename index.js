@@ -6,6 +6,9 @@ async function getPopularMovies();
 
 const data = await response.json();
   displayMovies(data.results);
+}catch (error){
+  console.error("Erro ao prucurar filmes:", error);
+}
 }
 
 function displayMovies(movies) {
@@ -15,11 +18,11 @@ function displayMovies(movies) {
     const movieDiv = document.createElement("div");
     movieDiv.classList.add("movie");
 
-    movieDiv.innerHTML ='
+    movieDiv.innerHTML =`
       <h3>${movie.tttle}</h3>
       <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" />
       <p>${movie.vote_average}</p>
-  ;
+`;
    container.appendChild(movieDiv);
 });
 }
