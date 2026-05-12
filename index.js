@@ -10,32 +10,22 @@ const sectionTitle = document.getElementById("sectionTitle");
 
 async function getPopularMovies() {
 
-    const response = await fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
-    );
-
+    const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
     const data = await response.json();
-
     displayMovies(data.results);
 }
-
-
 
 // Pesquisar Filmes
 
 async function searchMovies(movieName) {
-
-    const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`
-    );
-
-    const data = await response.json();
-
-    sectionTitle.innerText = `Resultados para: ${movieName}`;
-
-    displayMovies(data.results);
+const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`);
+const data = await response.json();
+sectionTitle.innerText = `Resultados para: ${movieName}`;
+displayMovies(data.results);
 }
+
 //Pesquisar por Género
+
 async function buscarPorgenero(generoId){
   const response = await featch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`);
   const data = await response.json();
