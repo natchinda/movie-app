@@ -10,14 +10,16 @@ response();
 function response(){
 fetch('https://api.themoviedb.org/3/movie/popular?api_key=8d34f5d8a544a4416e6596e58d71238e', options)
   .then(res => res.json())
-  .then(res => console.log(res))
-  .then(function (res){
+  .then(res => {
+    console.log(res);
     tratar_resp(res);
   })
   .catch(err => console.error(err));
 }
 
 function tratar_resp(res){
- console.log("hey");
+  res.results.forEach(filme => {
+    console.log(filme.title);
+  });
 
 }
