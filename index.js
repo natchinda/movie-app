@@ -1,14 +1,13 @@
 const API_KEY = '8d34f5d8a544a4416e6596e58d71238e'
 const container = document.getElementById("moviesContainer");
+const searchBtn = document.getElementById("searchBtn");
+const searchInput = document.getElementById("searchInput");
 
 async function getPopularMovies();
   const response = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}');
 
 const data = await response.json();
   displayMovies(data.results);
-}catch (error){
-  console.error("Erro ao prucurar filmes:", error);
-}
 }
 
 function displayMovies(movies) {
@@ -26,4 +25,11 @@ function displayMovies(movies) {
    container.appendChild(movieDiv);
 });
 }
+searchBtn.addEventListener("click", () => {
+    const movieName = searchInput.value;
+
+    if (movieName !== "") {
+        searchMovies(movieName);
+    }
+});
 getPopularMovies();
