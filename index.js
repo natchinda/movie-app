@@ -35,26 +35,64 @@ async function buscarPorgenero(generoId){
 
 //Mostrar Filmes
 function displayMovies(movies){
-    
+    container.innerHtml = "";
+    movies,forEach(movie => {
+        const movieDiv = document.createElement("div");
+        movieDiv.classList.add("movie");
+        movieDiv.innerHTML = `
+        <h3>${movie.title}</h3>
+        <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}"alt="${movie.title}"/>
+       <p>${movie.vote_average}</p>
+       <button class="favorite-btn">Favorito</button>`;
+        
 
 //Botão Favoritos
 const favoriteBtn = movieDiv.querySelector(".favorite-btn");
-    
+favoriteBtn.addEventListener("click", () => {
+    saveFavorite(movie);
+   });
+        container.appendChild(movieDiv=;
+ });
+}                              
+
 //Quardar Favoritos
 function savefavorite(movies){
+let favorites =
+        JSON.parse(localStorage.getItem("favorites")) || [];
+    favorites.push(movie);
 
+    localStorage.setItem(
+        "favorites",
+        JSON.stringify(favorites)
+    );
+    alert(`${movie.title} foi adicionado aos favoritos!`);
+}
     
 //Mostrar Favoritos
 function mostrarFavotite(){
-    
+    function mostrarFavoritos() {
+    const favorites =
+        JSON.parse(localStorage.getItem("favorites")) || [];
+    sectionTitle.innerText = "Meus Filmes Favoritos";
+
+displayMovies(favorites);
+}
     
 //Voltar à Home
 function mostrarHome(){
-
+    sectionTitle.innerText = "Filmes Populares";
+    getPopularMovies();
+}   
     
 // Evento Pesquisar
 searchBtn.addEventList("click", () => {
-    
+    const movieName = searchInput.value;
+
+    if (movieName !== "") {
+        searchMovies(movieName);
+    }
+
+});
 
 // Iníciar app
 getPopularMovies();
