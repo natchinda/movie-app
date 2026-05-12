@@ -27,3 +27,12 @@ function tratar_resp(res){
     
   });
 }
+
+document.getElementById("searchBtn").addEventListener("click", pesquisa);
+
+function pesquisa(){
+ console.log("hey now");//works
+ let searchInput = document.getElementById('searchInput');
+ console.log(searchInput.value);//returns 
+
+}  
