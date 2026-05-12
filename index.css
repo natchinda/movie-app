@@ -1,9 +1,9 @@
 body{
-  front-family: 'Segoe UI', Thoma, Gevena, Verdana, sans-serif;
+  font-family: 'Segoe UI', Thoma, Gevena, Verdana, sans-serif;
   margin:0;
   background: #1a1a1a;
   color:white;
-  text-aling: center
+  text-align: center
 }
 header{
   background: #111;
@@ -17,7 +17,7 @@ header{
 
 input{
   padding: 10px;
-  widh:250px;
+  width:250px;
 }
 
 button{
