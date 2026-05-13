@@ -1,4 +1,4 @@
-const API_KEY = "8d34f5d8a544a4416e6596e58d71238e";
+chconst API_KEY = "8d34f5d8a544a4416e6596e58d71238e";
 
 const container = document.getElementById("moviesContainer");
 const searchBtn = document.getElementById("searchBtn");
@@ -27,7 +27,7 @@ displayMovies(data.results);
 //Pesquisar por Género
 
 async function buscarPorgenero(generoId){
-  const response = await featch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`);
+  const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`);
   const data = await response.json();
     sectionTitle.innerText = "Filmes por Género";
     displayMovies(data.results);
@@ -35,8 +35,8 @@ async function buscarPorgenero(generoId){
 
 //Mostrar Filmes
 function displayMovies(movies){
-    container.innerHtml = "";
-    movies,forEach(movie => {
+    container.innerHTML = "";
+    movies.forEach(movie => {
         const movieDiv = document.createElement("div");
         movieDiv.classList.add("movie");
         movieDiv.innerHTML = `
