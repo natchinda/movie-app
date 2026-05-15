@@ -1,4 +1,4 @@
-chconst API_KEY = "8d34f5d8a544a4416e6596e58d71238e";
+const API_KEY = "8d34f5d8a544a4416e6596e58d71238e";
 
 const container = document.getElementById("moviesContainer");
 const searchBtn = document.getElementById("searchBtn");
@@ -26,7 +26,7 @@ displayMovies(data.results);
 
 //Pesquisar por Género
 async function buscarPorGenero(generoId){
-  const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`);
+  const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&with_genres=${generoId}`);
   const data = await response.json();
     sectionTitle.innerText = "Filmes por Género";
     displayMovies(data.results);
@@ -55,7 +55,7 @@ favoriteBtn.addEventListener("click", () => {
 }                              
 
 //Quardar Favoritos
-function savefavorite(movie){
+function saveFavorite(movie){
 let favorites =
         JSON.parse(localStorage.getItem("favorites")) || [];
     favorites.push(movie);
