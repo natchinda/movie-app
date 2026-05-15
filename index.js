@@ -25,7 +25,7 @@ displayMovies(data.results);
 }
 
 //Pesquisar por Género
-async function buscarPorgenero(generoId){
+async function buscarPorGenero(generoId){
   const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`);
   const data = await response.json();
     sectionTitle.innerText = "Filmes por Género";
@@ -50,12 +50,12 @@ const favoriteBtn = movieDiv.querySelector(".favorite-btn");
 favoriteBtn.addEventListener("click", () => {
     saveFavorite(movie);
    });
-        container.appendChild(movieDiv=;
+        container.appendChild(movieDiv);
  });
 }                              
 
 //Quardar Favoritos
-function savefavorite(movies){
+function savefavorite(movie){
 let favorites =
         JSON.parse(localStorage.getItem("favorites")) || [];
     favorites.push(movie);
@@ -68,7 +68,6 @@ let favorites =
 }
     
 //Mostrar Favoritos
-function mostrarFavotite(){
     function mostrarFavoritos() {
     const favorites =
         JSON.parse(localStorage.getItem("favorites")) || [];
