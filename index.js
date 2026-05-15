@@ -26,7 +26,7 @@ displayMovies(data.results);
 
 //Pesquisar por Género
 async function buscarPorGenero(generoId){
-  const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&with_genres=${generoId}`);
+  const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${generoId}`);
   const data = await response.json();
     sectionTitle.innerText = "Filmes por Género";
     displayMovies(data.results);
