@@ -1,5 +1,4 @@
 const API_KEY = "8d34f5d8a544a4416e6596e58d71238e";
-
 const container = document.getElementById("moviesContainer");
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
