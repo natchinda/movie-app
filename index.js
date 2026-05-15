@@ -25,7 +25,6 @@ displayMovies(data.results);
 }
 
 //Pesquisar por Género
-
 async function buscarPorgenero(generoId){
   const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`);
   const data = await response.json();
@@ -85,7 +84,7 @@ function mostrarHome(){
 }   
     
 // Evento Pesquisar
-searchBtn.addEventList("click", () => {
+searchBtn.addEventListener("click", () => {
     const movieName = searchInput.value;
 
     if (movieName !== "") {
