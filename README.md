@@ -13,4 +13,4 @@
 <p>https://www.themoviedb.org/settings/api</p>
 
 ## Ideias
-<p>lista de filmes favoritos </p>
+<p>lista de filmes favoritos, identificação do user e comunicação com uma realtime database</p>
