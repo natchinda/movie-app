@@ -182,4 +182,36 @@ input {
 
         transform: translateY(0);
     }
+#loader {
+
+    display: none;
+
+    font-size: 24px;
+
+    margin: 20px;
+
+    color: #e50914;
+
+    font-weight: bold;
+
+    animation: pulse 1s infinite;
+}
+
+
+@keyframes pulse {
+
+    0% {
+
+        opacity: 0.3;
+    }
+
+    50% {
+
+        opacity: 1;
+    }
+
+    100% {
+
+        opacity: 0.3;
+    }
 }
