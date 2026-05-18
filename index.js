@@ -26,6 +26,8 @@ async function getPopularMovies() {
 // PESQUISAR FILMES
 async function searchMovies(movieName) {
 
+    loader.style.display = "block";
+
     const response = await fetch(
         `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`
     );
