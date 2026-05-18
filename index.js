@@ -237,3 +237,5 @@ searchBtn.addEventListener("click", () => {
 
 // INICIAR APP
 getPopularMovies();
+//link da database:
+//https://console.firebase.google.com/project/mymovielist-b7d5a/database/mymovielist-b7d5a-default-rtdb/data/~2F?hl=pt-br&fb_gclid=CjwKCAjw8arQBhB9EiwAfIKdQoMuCYgkohxwRnkJhj2KWGi0kiGZJykFa3i7r8CguMIgBt46kuHKFxoC9aEQAvD_BwE
