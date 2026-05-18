@@ -4,10 +4,13 @@ const container = document.getElementById("moviesContainer");
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 const sectionTitle = document.getElementById("sectionTitle");
+const loader = document.getElementById("loader");
 
 
 // FILMES POPULARES
 async function getPopularMovies() {
+
+    loader.style.display = "block";
 
     const response = await fetch(
         `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
@@ -16,6 +19,8 @@ async function getPopularMovies() {
     const data = await response.json();
 
     displayMovies(data.results);
+    
+    loader.style.display = "none";
 }
 
 // PESQUISAR FILMES
@@ -31,12 +36,16 @@ async function searchMovies(movieName) {
         `Resultados para: ${movieName}`;
 
     displayMovies(data.results);
+
+      loader.style.display = "none";
 }
 
 
 // PESQUISAR POR GÉNERO
 async function buscarPorGenero(generoId) {
-
+    
+    loader.style.display = "block";
+    
     const response = await fetch(
         `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${generoId}`
     );
@@ -47,6 +56,8 @@ async function buscarPorGenero(generoId) {
         "Filmes por Género";
 
     displayMovies(data.results);
+
+     loader.style.display = "none";
 }
 
 
