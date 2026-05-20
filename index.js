@@ -8,11 +8,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 
 const API_KEY = "8d34f5d8a544a4416e6596e58d71238e";
 
-const container = document.getElementById("moviesContainer");
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
-const sectionTitle = document.getElementById("sectionTitle");
-
 
 // FILMES POPULARES
 async function getPopularMovies() {
@@ -285,6 +282,8 @@ window.buscarPorGenero = buscarPorGenero;
 
 getPopularMovies();
 
+const sectionTitle = document.getElementById("sectionTitle");
+const container = document.getElementById("moviesContainer");
 
     const firebaseConfig = {
         apiKey: "AIzaSyAXOKPwxr6f5MSYeLbheZQ7K-NqABcC2nQ",
