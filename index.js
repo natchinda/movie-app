@@ -1,16 +1,21 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import {
+        getDatabase,
+        ref,
+        push
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
 const API_KEY = "8d34f5d8a544a4416e6596e58d71238e";
 
 const container = document.getElementById("moviesContainer");
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 const sectionTitle = document.getElementById("sectionTitle");
-const loader = document.getElementById("loader");
 
 
 // FILMES POPULARES
 async function getPopularMovies() {
-
-    loader.style.display = "block";
 
     const response = await fetch(
         `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
@@ -19,14 +24,10 @@ async function getPopularMovies() {
     const data = await response.json();
 
     displayMovies(data.results);
-    
-    loader.style.display = "none";
 }
 
 // PESQUISAR FILMES
 async function searchMovies(movieName) {
-
-    loader.style.display = "block";
 
     const response = await fetch(
         `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieName}`
@@ -38,16 +39,12 @@ async function searchMovies(movieName) {
         `Resultados para: ${movieName}`;
 
     displayMovies(data.results);
-
-      loader.style.display = "none";
 }
 
 
 // PESQUISAR POR GÉNERO
 async function buscarPorGenero(generoId) {
-    
-    loader.style.display = "block";
-    
+
     const response = await fetch(
         `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${generoId}`
     );
@@ -58,8 +55,6 @@ async function buscarPorGenero(generoId) {
         "Filmes por Género";
 
     displayMovies(data.results);
-
-     loader.style.display = "none";
 }
 
 
@@ -75,13 +70,14 @@ function displayMovies(movies) {
 
         movieDiv.classList.add("movie");
 
+    const poster = movie.poster_path
+        ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+        : "https://via.placeholder.com/200x300?text=Sem+Imagem";
+
         movieDiv.innerHTML = `
             <h3>${movie.title}</h3>
-
-            <img
-                src="https://image.tmdb.org/t/p/w200${movie.poster_path}"
-                alt="${movie.title}"
-            />
+        
+            <img src="${poster}" alt="${movie.title}" />
 
             <p>⭐ ${movie.vote_average}</p>
 
@@ -127,12 +123,22 @@ function displayMovies(movies) {
 
 
 // GUARDAR FAVORITOS
-function saveFavorite(movie) {
+async function saveFavorite(movie) {
+
+      const username =
+        document.getElementById("usernameInput").value;
+
+    if (!username.trim()) {
+
+        showMessage("Escreve um username!");
+
+        return;
+    }
 
     let favorites =
-        JSON.parse(localStorage.getItem("favorites")) || [];
-
-    // Evitar repetidos
+        JSON.parse(
+            localStorage.getItem(`favorites_${username}`)
+        ) || [];
 
     const alreadyExists = favorites.some(
         fav => fav.id === movie.id
@@ -140,9 +146,7 @@ function saveFavorite(movie) {
 
     if (alreadyExists) {
 
-        showMessage(
-            "Filme já está nos favoritos!"
-        );
+        showMessage("Filme já existe!");
 
         return;
     }
@@ -150,24 +154,42 @@ function saveFavorite(movie) {
     favorites.push(movie);
 
     localStorage.setItem(
-        "favorites",
+        `favorites_${username}`,
         JSON.stringify(favorites)
     );
 
+    await push(
+        ref(db, `favorites/${username}`),
+        movie
+    );
+
     showMessage(
-        `${movie.title} adicionado aos favoritos!`
+        `${movie.title} guardado!`
     );
 }
+
 
 
 // MOSTRAR FAVORITOS
 function mostrarFavoritos() {
 
+    const username =
+        document.getElementById("usernameInput").value;
+
+    if (!username.trim()) {
+
+        showMessage("Escreve um username!");
+
+        return;
+    }
+
     const favorites =
-        JSON.parse(localStorage.getItem("favorites")) || [];
+        JSON.parse(
+            localStorage.getItem(`favorites_${username}`)
+        ) || [];
 
     sectionTitle.innerText =
-        "Meus Filmes Favoritos";
+        `${username} - Favoritos`;
 
     displayMovies(favorites);
 }
@@ -176,15 +198,20 @@ function mostrarFavoritos() {
 // REMOVER FAVORITOS
 function removeFavorite(movieId) {
 
+     const username =
+        document.getElementById("usernameInput").value;
+
     let favorites =
-        JSON.parse(localStorage.getItem("favorites")) || [];
+        JSON.parse(
+            localStorage.getItem(`favorites_${username}`)
+        ) || [];
 
     favorites = favorites.filter(
         movie => movie.id !== movieId
     );
 
     localStorage.setItem(
-        "favorites",
+        `favorites_${username}`,
         JSON.stringify(favorites)
     );
 
@@ -246,9 +273,32 @@ searchBtn.addEventListener("click", () => {
     }
 
 });
+document
+    .getElementById("favoritesBtn")
+    .addEventListener("click", mostrarFavoritos);
 
+window.mostrarFavoritos = mostrarFavoritos;
+window.mostrarHome = mostrarHome;
+window.buscarPorGenero = buscarPorGenero;
 
 // INICIAR APP
+
 getPopularMovies();
-//link da database:
-//https://console.firebase.google.com/project/mymovielist-b7d5a/database/mymovielist-b7d5a-default-rtdb/data/~2F?hl=pt-br&fb_gclid=CjwKCAjw8arQBhB9EiwAfIKdQoMuCYgkohxwRnkJhj2KWGi0kiGZJykFa3i7r8CguMIgBt46kuHKFxoC9aEQAvD_BwE
+
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAXOKPwxr6f5MSYeLbheZQ7K-NqABcC2nQ",
+        authDomain: "mymovielist-b7d5a.firebaseapp.com",
+        databaseURL: "https://mymovielist-b7d5a-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "mymovielist-b7d5a",
+        storageBucket: "mymovielist-b7d5a.firebasestorage.app",
+        messagingSenderId: "806137484009",
+        appId: "1:806137484009:web:c4673c6a6875b9a6fe9678",
+        measurementId: "G-L6WJ6G2X88"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+  
+
