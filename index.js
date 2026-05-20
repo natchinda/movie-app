@@ -6,10 +6,26 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
         push
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+const firebaseConfig = {
+    apiKey: "AIza...",
+    authDomain: "mymovielist-b7d5a.firebaseapp.com",
+    databaseURL: "https://mymovielist-b7d5a-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "mymovielist-b7d5a",
+    storageBucket: "mymovielist-b7d5a.firebasestorage.app",
+    messagingSenderId: "806137484009",
+    appId: "1:806137484009:web:c4673c6a6875b9a6fe9678"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 const API_KEY = "8d34f5d8a544a4416e6596e58d71238e";
 
+const container = document.getElementById("moviesContainer");
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
+const sectionTitle = document.getElementById("sectionTitle");
+
 
 // FILMES POPULARES
 async function getPopularMovies() {
@@ -270,9 +286,14 @@ searchBtn.addEventListener("click", () => {
     }
 
 });
-document
-    .getElementById("favoritesBtn")
-    .addEventListener("click", mostrarFavoritos);
+window.addEventListener("DOMContentLoaded", () => {
+
+    document
+        .getElementById("favoritesBtn")
+        .addEventListener("click", mostrarFavoritos);
+
+    getPopularMovies();
+});
 
 window.mostrarFavoritos = mostrarFavoritos;
 window.mostrarHome = mostrarHome;
@@ -281,23 +302,3 @@ window.buscarPorGenero = buscarPorGenero;
 // INICIAR APP
 
 getPopularMovies();
-
-const sectionTitle = document.getElementById("sectionTitle");
-const container = document.getElementById("moviesContainer");
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyAXOKPwxr6f5MSYeLbheZQ7K-NqABcC2nQ",
-        authDomain: "mymovielist-b7d5a.firebaseapp.com",
-        databaseURL: "https://mymovielist-b7d5a-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "mymovielist-b7d5a",
-        storageBucket: "mymovielist-b7d5a.firebasestorage.app",
-        messagingSenderId: "806137484009",
-        appId: "1:806137484009:web:c4673c6a6875b9a6fe9678",
-        measurementId: "G-L6WJ6G2X88"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-  
-
